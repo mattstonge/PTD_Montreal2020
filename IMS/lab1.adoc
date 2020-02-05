@@ -54,56 +54,18 @@ Grammarly plugin for Chrome causes problems when managing CloudForms. Please dea
 
 This lab could be performed in a classroom (whether virtual or physical), in which case the proctors running the lab will provide instructions on how to get your own instance.
 
-If you plan to run it on a personal basis to learn, demo or simply "taste it" you may take these points into account:
 
-. First time login?, forgot login or password? Go to https://www.opentlc.com/account (Note, your username should NOT have an *@* in it.)
-
-. Red Hat Partners can also request access to the Red Hat Product Demo System (link:https://rhpds.redhat.com[RHPDS]) by sending an email to open-program@redhat.com.
-
-. Passwords to the services are referred as `<to_be_provided>`. The credentials to access all services are available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]. If you can't access it please contact GPTE or the link:https://mojo.redhat.com/community/marketing/vertical-marketing/horizontal-solutions/people[Horizontal Solutions Team].
 
 == Preparation
 
-**RHTE**
-
-
-This step 3 (preparation) is for RHPDS users only.   Please note that for RHTE, a GUID grabber link will be provided for you to pick-up an already provisioned environment.
-
-
-Please choose the following lab :  *R2029 - Infrastructure Migration Solution (IMS) and Convert2RHEL*
-
-The activation key will also be provided by the instructor.
-
-=== Provision Your Migration Environment
-
-. Log in to the link:https://rhpds.redhat.com/[Red Hat Product Demo System] with your provided credentials.
-+
-image::rhpds_login.png[RHPDS]
-
-[start=2]
-. Go to *Services -> Catalogs*.
-. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration 1.1 GA*.
-. On the right pane, click *Order*.
-+
-image::rhpds_catalog.png[RHPDS]
-
-[start=5]
-. Please, read carefully all of the information on the resulting page, check the box to confirm you understood the runtime warning message, and then click *Submit*.
-+
-image::rhpds_order.png[RHPDS]
-
 [IMPORTANT]
 ====
-* It takes about 20 ~ 25 minutes for the demo to load completely and become accessible.
-** Wait for the full demo to load, even if some of its systems are marked "Up."
-* Watch for an email with information about how to access your demo environment.
-** Make note of the email's contents: a list of hostnames, IP addresses, and your GUID.
-** Whenever you see <YOUR-GUID> in the demo instructions, replace it with the GUID provided in the email.
-* You can get real-time updates and status of your demo environment at https://www.opentlc.com/rhpds-status.
+
+** Make note of the lab environment: a list of hostnames, IP addresses, and your GUID.
+** Whenever you see <YOUR-GUID> in the demo instructions, replace it with the GUID provided.
+
 ====
 
-[TIP]
-Be mindful of the runtime of your demo environment! It may take several hours to complete the demo, so you may need to extend the runtime. This is especially important in later steps when you are building virtual machines. For information on how to extend runtime and lifetime, see https://www.opentlc.com/lifecycle.
 
 == Environment
 
