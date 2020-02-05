@@ -1,0 +1,442 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:imagesdir: images
+
+== Infrastructure Migration Solution - Lab 1 Guide
+
+:numbered:
+
+== Overview
+
+
+In this lab, you will learn how to use the Infrastructure Migration Solution (IMS) available in Red Hat CloudForms, to migrate virtual machines from VMware to Red Hat Virtualization (RHV). We will also demonstrate how to use Ansible playbooks to perform additional tasks (pre or post migration). One of these tasks will be to convert some OEL and CentOS operating systems to RHEL.
+
+The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]
+
+This lab environment has been pre-configured to allow you to execute your migrations quickly.   Here are the configuration steps already done:
+
+* Configuration of all providers in CloudForms (VMware and RHV)
+* Configuration of the conversion hosts
+* Configuration of Ansible playbooks required for this lab
+
+
+
+=== Goals of this lab
+* Migrate several VMs from VMware vSphere to Red Hat Virtualization using Red Hat Infrastructure Migration Solution
+* Convert the operating system of some OEL and CentOS VMs to RHEL using a post-migration Ansible playbook
++
+NOTE: The source VMs are not deleted, only powered off once the migration is done. This measure can also be used as "rollback" in case a migration failure occurs.
+
+Required versions of products used:
+
+[cols="1,1",options="header"]
+|=======
+|Product |Version
+|CloudForms |4.7.0+
+|Red Hat Virtualization |4.2.5+
+|Red Hat Enterprise Linux (Conversion Host) |7.6+
+|Conversion Host Image |1.7+
+|VMware vSphere |5.5+
+|=======
+
+== Requirements to access and perform this lab
+
+=== Base requirements
+
+* SSH client (for Microsoft Windows users link:https://www.putty.org/[Putty] is recommended)
+* Firefox 17 or higher, or Chromium / Chrome
++
+[NOTE]
+Grammarly plugin for Chrome causes problems when managing CloudForms. Please deactivate it while doing this lab.
+
+=== Obtaining or enabling access credentials
+
+This lab could be performed in a classroom (whether virtual or physical), in which case the proctors running the lab will provide instructions on how to get your own instance.
+
+If you plan to run it on a personal basis to learn, demo or simply "taste it" you may take these points into account:
+
+. First time login?, forgot login or password? Go to https://www.opentlc.com/account (Note, your username should NOT have an *@* in it.)
+
+. Red Hat Partners can also request access to the Red Hat Product Demo System (link:https://rhpds.redhat.com[RHPDS]) by sending an email to open-program@redhat.com.
+
+. Passwords to the services are referred as `<to_be_provided>`. The credentials to access all services are available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]. If you can't access it please contact GPTE or the link:https://mojo.redhat.com/community/marketing/vertical-marketing/horizontal-solutions/people[Horizontal Solutions Team].
+
+== Preparation
+
+**RHTE**
+
+
+This step 3 (preparation) is for RHPDS users only.   Please note that for RHTE, a GUID grabber link will be provided for you to pick-up an already provisioned environment.
+
+
+Please choose the following lab :  *R2029 - Infrastructure Migration Solution (IMS) and Convert2RHEL*
+
+The activation key will also be provided by the instructor.
+
+=== Provision Your Migration Environment
+
+. Log in to the link:https://rhpds.redhat.com/[Red Hat Product Demo System] with your provided credentials.
++
+image::rhpds_login.png[RHPDS]
+
+[start=2]
+. Go to *Services -> Catalogs*.
+. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration 1.1 GA*.
+. On the right pane, click *Order*.
++
+image::rhpds_catalog.png[RHPDS]
+
+[start=5]
+. Please, read carefully all of the information on the resulting page, check the box to confirm you understood the runtime warning message, and then click *Submit*.
++
+image::rhpds_order.png[RHPDS]
+
+[IMPORTANT]
+====
+* It takes about 20 ~ 25 minutes for the demo to load completely and become accessible.
+** Wait for the full demo to load, even if some of its systems are marked "Up."
+* Watch for an email with information about how to access your demo environment.
+** Make note of the email's contents: a list of hostnames, IP addresses, and your GUID.
+** Whenever you see <YOUR-GUID> in the demo instructions, replace it with the GUID provided in the email.
+* You can get real-time updates and status of your demo environment at https://www.opentlc.com/rhpds-status.
+====
+
+[TIP]
+Be mindful of the runtime of your demo environment! It may take several hours to complete the demo, so you may need to extend the runtime. This is especially important in later steps when you are building virtual machines. For information on how to extend runtime and lifetime, see https://www.opentlc.com/lifecycle.
+
+== Environment
+
+A full new migration environment is deployed on every request. To make the environment unique a 4 character identifier is assigned to it (i.e. `1e37`), this identifier is referred in this documentation as *YOUR-GUID*.
+
+The migration environment consists of the following systems:
+
+image::blueprint2.png[Blueprint]
+
+[cols="1,1,1,2",options="header"]
+|=======
+| Hostname | Internal IP | External name | Description
+|`workstation.example.com` |`192.168.0.10` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host and Ansible host
+|`storage.example.com` |`192.168.0.254` | workstation-<YOUR-GUID>.rhpds.opentlc.com | NFS server
+|`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
+|`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Virtualization Manager server
+|`kvm1.example.com` |`192.168.0.41` | kvm1-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
+|`kvm2.example.com` |`192.168.0.42` | kvm2-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
+|`vcenter.example.com` |`192.168.0.50` | vcenter-<YOUR-GUID>.rhpds.opentlc.com |VMware vCenter server
+|`esx1.example.com` |`192.168.0.51` | N/A |ESXi hypervisor
+|`esx2.example.com` |`192.168.0.52` | N/A |ESXi hypervisor
+|=======
+
+
+
+*Virtual Machines*
+
+This deployment of the migration environment includes the following VMs provisioned in the vSphere environment in order to be migrated:
+
+[cols="1,1,2",options="header"]
+|=======
+| Name | IPs | Description
+| `oracledb.example.com` | 10.10.0.160 | Oracle Linux 7
+| `tomcat.example.com` | 10.10.0.180 | Centos 7
+|=======
+
+
+== Getting Started
+
+**RHTE**
+
+. Once the environment is up and running, and we have it assigned to ourselves, we use SSH to test access to it, by connecting to the `workstation`.  The SSH path is provided in the GUID grabber tool.
++
+----
+$ ssh lab-user@workstation-<YOUR-GUID>.rhpds.opentlc.com
+----
++
+. Once you check that you can connect to workstation, become `root` using the provided password:
++
+----
+$ sudo -i
+----
+
+Now that you have accessed the `workstation` machine and become `root`, you can check the rest of the infrastructure.
+
+**RHPDS**
+
+. Once the system is running, use SSH to access your demo server using your OPENTLC login name and private SSH key.
+
+* Using a Unix/Linux system:
++
+----
+$ ssh -i /path/to/private_key <YOUR-OpenTLC-USERNAME-redhat.com>@workstation-<YOUR-GUID>.rhpds.opentlc.com
+----
+
+* Example for user 'batman' and GUID '1e37', using the default ssh private key:
++
+----
+$ ssh -i ~/.ssh/id_rsa batman-redhat.com@workstation-1e37.rhpds.opentlc.com
+----
+
+. Become `root` using the provided password:
++
+----
+$ sudo -i
+----
+
+. Check the status of the whole environment, from the `workstation`, using ansible:
++
+----
+# ansible infra -m ping
+----
++
+This command establishes a connection to all the machines in the environment (except ESXi servers).
+In case the machines are up an running a success message, per each, will show up.
+This is an example of a success message for the VM `cf.example.com`:
++
+----
+cf.example.com | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+----
++
+
+
+Once your machines are all up and running, keep your terminal open for later and log into Cloudforms from your browser using the following URL
+
+* *CloudForms:* `https://cf-<YOUR-GUID>.rhpds.opentlc.com`
++
+image::cloudforms_login.png[CloudForms Login]
++
+[TIP]
+You can also find these URLs in the email provided when you provisioned the demo environment.
++
+image::cloudforms_dashboard.png[CloudForms Dashboard]
+
+
+=== Fix the provider authentication in CloudForms
+
+This step is required to address an issue with our lab environment.   Please note that you typically don't have to do this in a normal production environment.
+
+. Log in with user `admin` and the provided password in CloudForms. Once in the web interface, go to *Compute -> Infrastructure -> Providers*.
++
+image::cloudforms_infrastructure_providers_1.png[CloudForms Infrastructure Providers 1]
+
+. If you see an exclamation mark (*!*), or a cross (*x*) in a provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
++
+image::cloudforms_infrastructure_providers_2b.png[CloudForms Infrastructure Providers 2]
++
+image::cloudforms_infrastructure_providers_3b.png[CloudForms Infrastructure Providers 3]
++
+[TIP]
+Take into account that vCenter may take longer to start.
+
+. To have proper information on all the resources available, check the provider's box, go to *Configuration -> Refresh Relationships and Power States*.
++
+image::cloudforms_infrastructure_providers_4b.png[CloudForms Infrastructure Providers 4]
++
+image::cloudforms_infrastructure_providers_5b.png[CloudForms Infrastructure Providers 5]
+
+. Go to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.
++
+image::cloudforms_vms_1.png[CloudForms Virtual Machines 1]
+
+. Select the pane *VMs & Templates* and, in it, the *vSphere* provider.
+
+. Only the VMs and Templates in vSphere will show.
++
+image::cloudforms_vms_3b.png[CloudForms Virtual Machines 3]
+
+. Select all your VMs and power them up using the *Power On* button.
++
+image::cloudforms_vms_4.png[CloudForms Virtual Machines 4]
+
+. Click on the refresh button every few seconds until they are all UP.
++
+image::cloudforms_vms_5.png[CloudForms Virtual Machines 5]
+
++
+[IMPORTANT]
+*BE CAREFUL* - Our VMs must be ON for the migration as we will use a pre-migration Ansible playbook.   This pre-migration playbook will fail if your VMs are not powered on.   Powered OFF VMs can be migrate when no pre-migration playbooks are required.
+
+. Have a look at the current operating systems running on VMware.  The following icons are used to identify RHEL, Oracle Linux and CentOS.   Currently, your *oracledb* VM should be running *Oracle Linux 7*.   And your *tomcat* VM should be running *CentOS*.   Those are the VMs we will migrate over the RHV while converting their operating systems to RHEL at the same time.
++
+image::operating_systems.png[Operating systems]
+
+
+
+
+== Create an Infrastructure Mapping (vSphere to RHV)
+
+. Navigate to the *Migration -> Infrastructure Mappings*.
++
+image::infrastructure_mapping_1.png[Infrastructure Mapping 1]
+
+. Click on *Create Infrastructure Mapping*.
++
+image::infrastructure_mapping_2.png[Infrastructure Mapping 2]
+
+. In the *step 1* of the wizard, *General*, type your first mapping name, example `VMware to RHV`, select as *Target Provider* `Red Hat Virtualization`  and click *next*.
++
+* A description may be added to make it easy to, later on, recognize the usage of the mapping.
++
+image::infrastructure_mapping_3b.png[Infrastructure Mapping 3]
+
+. In the *step 2* of the wizard, *Map Compute*, select your VMware cluster and your RHV cluster, click *Add Mapping*, then click *next*.
++
+image::infrastructure_mapping_4.png[Infrastructure Mapping 4]
+
+. In the *step 3* of the wizard, *Map Storage*, select the NFS storage on both sides, click *Add Mapping*, then click *next*.
++
+image::infrastructure_mapping_5b.png[Infrastructure Mapping 5]
+
+. In the *step 4* of the wizard, *Map Networks*, 3 different networks must be mapped.  You will have to map your service network, your service-dmz network and your management network.  Then click *Add Mapping*.   The screenshot below shows all the mapping as they should be on your screen once completed.
++
+image::infrastructure_mapping_6c.png[Infrastructure Mapping 6]
+
+. In the *step 5* of the wizard, *Results*, you get a confirmation that your new infrastructure mapping has been completed. Click *close*.   After the wizard is closed, you should see your mapping listed.
++
+image::infrastructure_mapping_7.png[Infrastructure Mapping 7]
+
+In these steps an *Infrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat Virtualization.   This mapping information will be used later when migrating VMs to appropriately migrate your VMs to the right clusters, storages and networks without having to ask this information for every VM migration.
+
+== Migrating VMs to RHV with a Migration Plan
+
+=== Create the migration plan
+
+. Start in the CloudForms page accessed by navigating to *Migration -> Migration Plans*.
++
+image::migration_plan_0.png[Migration Plan 0]
+
+. Click on *Create Migration Plan*.
++
+image::migration_plan_1.png[Migration Plan 1]
+
+. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* your just created.   Then enter a name for your migration plan and click *next*.
++
+image::migration_plan_2b.png[Migration Plan 2]
++
+[NOTE]
+Keeping the default option will take us to the VM menu selector. For massive conversions a CSV file upload can be the right choice.
+
+. In the *step 2* of the wizard, *VMs*, select the *oracledb* and *tomcat*  virtual machines, as the ones to be migrated.
++
+image::migration_plan_3b.png[Migration Plan 3]
++
+[NOTE]
+VM selector has a filter to help find a set of VMs within a long list. We may try filtering by the term.
+
+. In the *step 3* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed before or after the migration.  For this use-case, as our VMs are using static IP, we will need to use the *Force NIC Names* playbook as a pre-migration step to keep our network configuration on RHV.   We will also use a post-migration playbook named *Convert2RHEL* to automatically convert our OEL and CentOS VMs to RHEL after the migration is completed.   Make sure to have selected all the options as showed in the screenshot below, then click *Next*
++
+image::migration_plan_4c.png[Migration Plan 4]
++
+[NOTE]
+Our original VM on vSphere will only be powered off.  If anything goes wrong while converting my VM to RHEL, I can simply rollback by powering ON my original VM on VMWare.
+
+. In the *step 4* of the wizard, *Schedule*, select *Save migration plan to run later*. Click *Create*
++
+image::migration_plan_5.png[Migration Plan 5]
++
+[NOTE]
+The migration plan can be run immediately, by choosing the other option.
+
+. In the *step 5* of the wizard, *Results*, your migration plan has now been saved. Click *Close*.
++
+image::migration_plan_6.png[Migration Plan 6]
+
+
+
+
+=== Launch Migration
+
+. To launch the migration, while in the *Migration Plans* page, click on the *Migrate* button.
++
+image::migration_running_1b.png[Migration Running 1]
+
+. The migration will get initiated.  Now we'll have to wait for the migration to be completed.  This can be a fairly long process (~1 hour) as we are migrating both the VM and the operating system at the same time.  In the next section, we will look at what's going on while the migration is finishing.
++
+image::migration_running_2b.png[Migration Running 2]
++
+
+
+=== Monitoring or troubleshooting your migration
+
+. While our migration plan is getting executed, let's understand what's going on.   CloudForms is the high level orchestrator of the overall plan.  But the migrations are actually getting done by some RHV hosts that have been pre-configured for you as conversion hosts during the installation process.   When enabling a RHV host to become a conversion host, multiple additional packages are installed like the v2v-tooling, a v2v wrapper script, a VMware library *(VDDK)*, etc.
++
+image::ims_diagram.png[IMS diagram]
++
+. For each VM getting migrated, CloudForms will send a request to our V2V-wrapper over SSH on one of the conversion hosts available.  This v2v-wrapper uses our v2v command line tool to execute the migration, while passing as an argument the VMware VDDK library to increase the performance of our migration.   The v2v-wrapper also track and report back to CloudForms the status of our migration.
++
+image::ims_diagram2.png[IMS diagram2]
++
+.  A download button is available in the UI to receive the logs of our v2v-wrapper or v2v tool.  That said, when monitoring a currently running migration, it might be easier to just SSH on the conversion host and tail our logs directly on this server.  First, we need to find out on which conversion host our migration is currently running.  Click on the tooltip icon to reveal this information.
++
+image::ims_find_logs.png[IMS find logs]
++
+. This tool tip info provides the conversion host information *(kvm1.example.com)* and the log path *(/var/log/vdsm/import/...)*.   Now, all we have to do is SSH on this conversion host and tail our logs.
++
+----
+[root@workstation-repl ~]# ssh kvm1.example.com
+
+[root@kvm1 ~]# cd /var/log/vdsm/import/
+[root@kvm1 import]# tail -f v2v-import-...log
+----
++
+. Have a look at this folder, you will find all the logs generaged by the v2v tool *(.log)* and also the v2v-wrapper *(-wrapper.log)*.
++
+[NOTE]
+Migrations are load-balanced between all your conversion hosts.  You might have to SSH to another conversion host to see your other logs.
+
+. CloudForms also provide logs for the overall migration plan.   If you would like to see those logs, you can SSH on the CloudForms appliance itself from your workstation
++
+----
+[root@workstation-repl ~]# ssh cf.example.com
+Welcome to the Appliance Console
+
+For a menu, please type: appliance_console
+Web console: https://cf.example.com:9090/ or https://192.168.0.100:9090/
+
+Last login: Fri Aug 30 15:37:28 2019 from 192.168.0.10
+[root@cf ~]# vmdb
+[root@cf vmdb]# cd log
+[root@cf log]# tail -f automation.log
+----
++
+. At this time, the Ansible logs are only available from the UI download button once the playbook has been executed completely.   We are hoping to have real-time log output available in CloudForms 5.1
++
+
+
+=== Successful Migration, Final Review
+
+. Assuming everything went well, you should have the following result.
++
+image::migration_running_3b.png[Migration Running 2]
+[NOTE]
+Feel free to review the logs using the *Download Log* button.
+
+
+. Let's confirm that our VMs have been converted to RHEL.  From your terminal, SSH to your tomcat VM:
++
+----
+[root@workstation-repl ~]# ssh tomcat
+----
++
+. There are multiple ways to validate you are running RHEL.
++
+----
+[root@tomcat ~]# cat /etc/os-release
+----
++
+. or
++
+----
+[root@tomcat ~]# cat /etc/os-release
+----
++
+. or
++
+----
+[root@tomcat ~]# rpm -q redhat-release-server
+----
+. In all cases, you should see that you are now running RHEL 7.   Run the same command for *oracledb*.
++
+This should also show that you've been migrating from OEL to RHEL.
+. CONGRATULATION, you are now running a fully supported Red Hat stack.
