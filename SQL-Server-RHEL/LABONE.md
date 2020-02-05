@@ -24,7 +24,7 @@ LAB THREE  - Security / Best Practices
 
 Session Presentation Slides
 
-  [Slides](https://github.com/redhat-partner-tech/partner-tech-days-feb2020/blob/master/SQL-Server-RHEL/SQL_on_RHEL_PTD_presentation_FEB2020.pdf)
+  [Slides](https://github.com/mattstonge/PTD_Montreal2020/blob/master/SQL-Server-RHEL/SQL_on_RHEL_PTD_presentation_FEB2020.pdf)
 
 
 # LAB ONE
