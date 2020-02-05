@@ -11,21 +11,21 @@ Thanks in advance to Microsoft  for their excellent reference materials which ma
 
 LAB ONE - Introducing MS SQL Server
 
-
-  [LAB ONE](https://github.com/redhat-partner-tech/partner-tech-days-feb2020/blob/master/SQL-Server-RHEL/README.md)
+  [Exercises](https://github.com/mattstonge/PTD_Montreal2020/blob/master/SQL-Server-RHEL/LABONE.md)
 
 LAB TWO  - Importing/Recovery of a Database
 
-  [Exercises](https://github.com/redhat-partner-tech/partner-tech-days-feb2020/blob/master/SQL-Server-RHEL/LABTWO.md) 
+  [Exercises](https://github.com/mattstonge/PTD_Montreal2020/blob/master/SQL-Server-RHEL/LABTWO.md)
 
 LAB THREE  - Security / Best Practices
 
-  [EXERCISES](https://github.com/redhat-partner-tech/partner-tech-days-feb2020/blob/master/SQL-Server-RHEL/LABTHREE.md)
+  [EXERCISES](https://github.com/mattstonge/PTD_Montreal2020/blob/master/SQL-Server-RHEL/LABTHREE.md)
 
 
 Session Presentation Slides
 
-  [Slides](https://github.com/redhat-partner-tech/partner-tech-days-feb2020/blob/master/SQL-Server-RHEL/SQL_on_RHEL_PTD_presentation_FEB2020.pdf)
+  [Slides](https://github.com/mattstonge/PTD_Montreal2020/blob/master/SQL-Server-RHEL/SQL_on_RHEL_PTD_presentation_FEB2020.pdf)
+
 
 
 # LAB TWO EXERCISES
