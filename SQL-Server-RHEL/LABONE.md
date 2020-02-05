@@ -11,15 +11,15 @@ Thanks in advance to Microsoft  for their excellent reference materials which ma
 # TABLE OF CONTENTS
 LAB ONE - Introducing MS SQL Server
 
-  [Exercises](https://github.com/redhat-partner-tech/partner-tech-days-feb2020/blob/master/SQL-Server-RHEL/README.md)
+  [Exercises](https://github.com/mattstonge/PTD_Montreal2020/blob/master/SQL-Server-RHEL/LABONE.md)
 
 LAB TWO  - Importing/Recovery of a Database
 
-  [Exercises](https://github.com/redhat-partner-tech/partner-tech-days-feb2020/blob/master/SQL-Server-RHEL/LABTWO.md) 
+  [Exercises](https://github.com/mattstonge/PTD_Montreal2020/blob/master/SQL-Server-RHEL/LABTWO.md) 
 
 LAB THREE  - Security / Best Practices
 
-  [EXERCISES](https://github.com/redhat-partner-tech/partner-tech-days-feb2020/blob/master/SQL-Server-RHEL/LABTHREE.md)
+  [EXERCISES](https://github.com/mattstonge/PTD_Montreal2020/blob/master/SQL-Server-RHEL/LABTHREE.md)
 
 
 Session Presentation Slides
@@ -32,16 +32,9 @@ Session Presentation Slides
 ## Getting Started
 
 ### Prereqisites
-- Access to [RHPDS](https://rhpds.redhat.com)
-
-[![screenshot](https://github.com/mattstonge/SQLonRHEL/blob/master/images/rhpds_login.png)
-
-- Initiate the Definitive RHEL 8 Hands-on Lab (we will be piggy-backing on that deployment)
-
-[![screenshot](https://github.com/mattstonge/SQLonRHEL/blob/master/images/def-rhel-8-lab-order.png)
-
-- View the inventory provided to you via email (don't loose this - You're going to need it!)
-
+The Lab environment has been provisioned for you...
+It will contain several systems, however, only the Workstation is externally reachable.
+You will be given a GUID for your unique environment - write this down you'll need it.
 
 We will be using those systems as follows:
 
@@ -54,11 +47,6 @@ NODE2 - this will be used when we do clustering
 NODE3 - UNUSED 
 
 
-### Please Note
-IF YOU ARE ATTENDING A HOSTED WORKSHOP - the RHPDS provisioning has been done for you... Please make note of your systems and login credentials and move on to the Install section...
-
-However, if you have no access to RHPDS or the workshop environment, you may install Red Hat Enterprise Linux on your own machine, go to https://access.redhat.com/products/red-hat-enterprise-linux/evaluation. You can also create RHEL virtual machines in Azure. See Create and Manage Linux VMs with the Azure CLI, and use --image RHEL in the call to az vm create.
-
 ### Accessing the Lab Environment
 Review your environment information.
 You will need to SSH from your laptop to the WORKSTATION then to NODE1 so we can begin work. (you'll be promted for the password)
@@ -66,9 +54,8 @@ You will need to SSH from your laptop to the WORKSTATION then to NODE1 so we can
 
 ---
 
-ssh student@"<workstation_External_Hostname>" 
+ssh student@rhel8lab-<GUID>.rhpds.opentlc.com 
 
-_`ie. ssh student@rhel8lab-<guid>.rhpds.opentlc.com`_
 
 ssh student@node1
   
