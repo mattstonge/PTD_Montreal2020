@@ -54,7 +54,7 @@ You will need to SSH from your laptop to the WORKSTATION then to NODE1 so we can
 
 ---
 
-ssh student@rhel8lab-<GUID>.rhpds.opentlc.com 
+ssh student@rhel8lab-< GUID >.rhpds.opentlc.com 
 
 
 ssh student@node1
