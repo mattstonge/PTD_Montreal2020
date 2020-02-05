@@ -11,7 +11,7 @@ Thanks in advance to Microsoft  for their excellent reference materials which ma
 # TABLE OF CONTENTS
 LAB ONE - Introducing MS SQL Server
 
-  [LAB ONE](https://github.com/redhat-partner-tech/partner-tech-days-feb2020/blob/master/SQL-Server-RHEL/README.md)
+  [Exercises](https://github.com/redhat-partner-tech/partner-tech-days-feb2020/blob/master/SQL-Server-RHEL/README.md)
 
 LAB TWO  - Importing/Recovery of a Database
 
@@ -27,7 +27,7 @@ Session Presentation Slides
   [Slides](https://github.com/redhat-partner-tech/partner-tech-days-feb2020/blob/master/SQL-Server-RHEL/SQL_on_RHEL_PTD_presentation_FEB2020.pdf)
 
 
-
+# LAB ONE
 
 ## Getting Started
 
