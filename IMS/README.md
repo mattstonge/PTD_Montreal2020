@@ -10,7 +10,7 @@ The solution includes point and click tooling that provides mass migration capab
 - Montreal, 2/6
 
 
-*Lab Notes (Please read):**
+*Lab Notes (Please read):
 - It will take approximately 30 mins to complete this lab. 
   - Note that Lab Step "7.2. Launch Migration" (the actual migration) will take 60-90 mins to complete
 - Since the lab environment is already created for you, skip sections 1-3. 
@@ -21,7 +21,7 @@ The solution includes point and click tooling that provides mass migration capab
   - Then, pick up with the CloudForms login page
 - Cloudforms login: **admin / r3dh4t1!**
 
-[IMS Open Lab Instructions](https://github.com/RedHatDemos/RHS-Infrastructure_Migration/blob/ims_1.2/doc/lab1.adoc) -- Right-click and "Open Link in New Window" to reference the notes above 
+[IMS Open Lab Instructions](https://github.com/mattstonge/PTD_Montreal2020/blob/master/IMS/lab1.adoc) -- Right-click and "Open Link in New Window" to reference the notes above 
 
 
 
