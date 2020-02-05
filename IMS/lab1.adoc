@@ -42,7 +42,7 @@
   
   
 
-    <meta name="request-id" content="CD6D:6D31:1A0346:2D41A6:5E3B1CB6" data-pjax-transient="true" /><meta name="html-safe-nonce" content="17d70401b97ee56840d2fb48f895f2ca5acd42f1" data-pjax-transient="true" /><meta name="visitor-payload" content="eyJyZWZlcnJlciI6bnVsbCwicmVxdWVzdF9pZCI6IkNENkQ6NkQzMToxQTAzNDY6MkQ0MUE2OjVFM0IxQ0I2IiwidmlzaXRvcl9pZCI6IjE3MTk1Nzk0MjIxODMzMzM2NyIsInJlZ2lvbl9lZGdlIjoiaWFkIiwicmVnaW9uX3JlbmRlciI6ImlhZCJ9" data-pjax-transient="true" /><meta name="visitor-hmac" content="99a19517927ce4477629d3aa1eec9db312e67f2e5224e375eb92b1d6aa628313" data-pjax-transient="true" />
+    <meta name="request-id" content="D224:64FA:144C7B:275CA0:5E3B2CC7" data-pjax-transient="true" /><meta name="html-safe-nonce" content="ec06c49dc69b3d95c3fabcb8807ee6ec6b800c7f" data-pjax-transient="true" /><meta name="visitor-payload" content="eyJyZWZlcnJlciI6bnVsbCwicmVxdWVzdF9pZCI6IkQyMjQ6NjRGQToxNDRDN0I6Mjc1Q0EwOjVFM0IyQ0M3IiwidmlzaXRvcl9pZCI6IjI3Mzg4NjEwODk1OTEzNDAyMzIiLCJyZWdpb25fZWRnZSI6ImlhZCIsInJlZ2lvbl9yZW5kZXIiOiJpYWQifQ==" data-pjax-transient="true" /><meta name="visitor-hmac" content="22d5bd8f73c91984d0f11a5199ecd77fea51a3f7ea490f8fe08d0db98edbb2bd" data-pjax-transient="true" />
 
 
 
@@ -78,7 +78,7 @@
 
     <meta name="enabled-features" content="MARKETPLACE_FEATURED_BLOG_POSTS,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS,MARKETPLACE_PENDING_INSTALLATIONS,RELATED_ISSUES">
 
-  <meta http-equiv="x-pjax-version" content="e7c398891a7cc998b5e90e713c932dc2">
+  <meta http-equiv="x-pjax-version" content="0ba52066dbe880efafb0615dff441394">
   
 
       <link href="https://github.com/RedHatDemos/RHS-Infrastructure_Migration/commits/ims_1.2.atom" rel="alternate" title="Recent Commits to RHS-Infrastructure_Migration:ims_1.2" type="application/atom+xml">
@@ -283,7 +283,7 @@
           spellcheck="false"
           autocomplete="off"
           >
-            <input type="hidden" value="l5gGoTqWmW6LUyge4nhjuD7fSc/V2w7XbvaZrJ4nhXiY5jJMrl8Y9lw07krv6Og3V8eDec01DubQQ7dPkpNO3Q==" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" />
+            <input type="hidden" value="ghQQ2L6Mj9cxu1cPk3vm7QkFiOZQG+9I8hgJ23v/H4rIe12BzDBx3imxm4PeajkMKkya1p/afxjlZKk+uWqoTw==" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" />
           <input type="hidden" class="js-site-search-type-field" name="type" >
             <img src="https://github.githubassets.com/images/search-key-slash.svg" alt="" class="mr-2 header-search-key-slash">
 
@@ -637,33 +637,16 @@
     <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/RedHatDemos/RHS-Infrastructure_Migration/blob/9abf5cc6a60afa5f3b3f1c01718a964ed3c3c2fe/doc/lab1.adoc">Permalink</a>
 
     <!-- blob contrib key: blob_contributors:v21:79f7bb10e29c3632fbd8d959381adc29 -->
-        <div class="signup-prompt mx-auto mb-6 p-4 border rounded-2 js-signup-prompt"
-    style="background-image: url('https://github.githubassets.com/images/modules/site/heroes/octocat-unpacking-hubot.svg'); background-position: 94% 96%; background-size: auto 170%;"
-    data-prompt="blobs" hidden>
-    <div class="position-relative">
-      <button type="button"
-        class="position-absolute top-0 right-0 py-1 px-2 border bg-white btn-link link-gray no-underline f6 js-signup-prompt-button"
-        data-ga-click="(Logged out) Sign up prompt, click, text:Dismiss"
-        data-ga-load="Blob, view, type:redesigned signup prompt">
-        Dismiss
-      </button>
-      <h3>All your code in one place</h3>
-      <p class="col-md-7">
-        GitHub makes it easy to scale back on context switching. Read rendered
-        documentation, see the history of any file, and collaborate with
-        contributors on projects across GitHub.
-      </p>
-      <a href="/join?source=prompt-blob-show"
-        class="btn btn-primary mr-2"
-        data-ga-click="(Logged out) Sign up prompt, click, text:Sign up for free"
-        data-ga-load="Blob, view, type:redesigned signup prompt">
-        Sign up for free
-      </a>
-      <a href="/pricing"
-        data-ga-click="(Logged out) Sign up prompt, click, text:See pricing for teams and enterprises"
-        data-ga-load="Blob, view, type:redesigned signup prompt">
-        See pricing for teams and enterprises
-      </a>
+        <div class="signup-prompt-bg rounded-1 js-signup-prompt" data-prompt="signup" hidden>
+    <div class="signup-prompt p-4 text-center mb-4 rounded-1">
+      <div class="position-relative">
+        <button type="button" class="position-absolute top-0 right-0 btn-link link-gray js-signup-prompt-button" data-ga-click="(Logged out) Sign up prompt, clicked Dismiss, text:dismiss">
+          Dismiss
+        </button>
+        <h3 class="pt-2">Join GitHub today</h3>
+        <p class="col-6 mx-auto">GitHub is home to over 40 million developers working together to host and review code, manage projects, and build software together.</p>
+        <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/RedHatDemos/RHS-Infrastructure_Migration/blob/ims_1.2/doc/lab1.adoc&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="bc153f31d5f0757bab745f3808d834cbfe646905c6cc257cfa3b01c4f2c3d913" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=RedHatDemos%2FRHS-Infrastructure_Migration">Sign up</a>
+      </div>
     </div>
   </div>
 
@@ -793,6 +776,12 @@
 
 
     <div>
+          <a class="btn-octicon tooltipped tooltipped-nw js-remove-unless-mac-or-win"
+             href="https://desktop.github.com"
+             aria-label="Open this file in GitHub Desktop"
+             data-ga-click="Repository, open with desktop">
+              <svg class="octicon octicon-device-desktop" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M15 2H1c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1h5.34c-.25.61-.86 1.39-2.34 2h8c-1.48-.61-2.09-1.39-2.34-2H15c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm0 9H1V3h14v8z"/></svg>
+          </a>
 
           <button type="button" class="btn-octicon disabled tooltipped tooltipped-nw"
             aria-label="You must be signed in to make or propose changes">
@@ -1893,7 +1882,7 @@ Feel free to review the logs using the <strong>Download Log</strong> button.
     <script crossorigin="anonymous" async="async" integrity="sha512-0ME9ftiuUHsYYdeBdLtPHbeL4j0UjTAy9YxHpX0AaZLPPex/JTS5mmHozk8Bnp2czMkd3FmK8DfVID7zxmD5OA==" type="application/javascript" id="js-conditional-compat" data-src="https://github.githubassets.com/assets/compat-bootstrap-d0c13d7e.js"></script>
     <script crossorigin="anonymous" integrity="sha512-SqCYr3DST2+ncuynd6kP5J4/H1IcSAUqwdlxtBk0eePGTM7cIZyVVrngRv6zqi2v9HNVPH4iS+sqQA9YgVjfhw==" type="application/javascript" src="https://github.githubassets.com/assets/frameworks-4aa098af.js"></script>
     
-    <script crossorigin="anonymous" async="async" integrity="sha512-hjJHa5X4u1CVgYtMd2V3F6xbncLY8x8bKfhoBZff8f4gd04axhlaYCf5cMrMUwZysfOCpk4KBEzc5plnU/XvBQ==" type="application/javascript" src="https://github.githubassets.com/assets/github-bootstrap-8632476b.js"></script>
+    <script crossorigin="anonymous" async="async" integrity="sha512-1RRqsnP/5dBuuXxAnvg9ryMaoOU61cJidFWIOfsemBCzbZyKAMEwS4vEXv/O46jrXIiLjRmkaSu16z1ZTgJfgQ==" type="application/javascript" src="https://github.githubassets.com/assets/github-bootstrap-d5146ab2.js"></script>
     
     
     
