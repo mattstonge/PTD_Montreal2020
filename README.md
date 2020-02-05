@@ -27,6 +27,6 @@ The intent is to enable Red Hat Business Partners with updates on our latest pro
 
   * Presentation Decks & Open Labs Guides
     - [IMS](https://github.com/mattstonge/PTD_Montreal2020/tree/master/IMS) - Deck & Self-paced Red Hat Infrastructure Migration Solution lab 
-    - [SQL-Server-RHEL](https://github.com/mattstonge/PTD_Montreal2020/tree/master/SQL-Server-RHEL) - Deck & Self-paced SQL Server 2017 on RHEL 8 lab 
-    - [OpenShift-AppDev](https://github.com/mattstonge/PTD_Montreal2020/tree/master/OpenShift-AppDev) - Deck & Self-paced OpenShift 4 w/Quarkus & BPA lab 
+    - [SQL-Server-RHEL](https://github.com/mattstonge/PTD_Montreal2020/blob/master/SQL-Server-RHEL/LABONE.md) - Deck & Self-paced SQL Server 2017 on RHEL 8 lab 
+    - [OpenShift-AppDev](https://github.com/mattstonge/PTD_Montreal2020/blob/master/OpenShift-AppDev/README.adoc) - Deck & Self-paced OpenShift 4 w/Quarkus & BPA lab 
 
