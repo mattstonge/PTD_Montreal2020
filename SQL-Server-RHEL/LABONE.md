@@ -1,10 +1,6 @@
 A Set of Lab Exercises organized by Matt St. Onge, Jack Waterworth, & John Tietjen
 
-v1.1  2/3/2020
-
-[Lab Environment - Raleigh](https://www.opentlc.com/gg/gg.cgi?profile=generic_na_arwinata-redhat.com)  Then, Select *SQL - SQL Open Lab*
-
-
+v1.2  2/5/2020
 
 
 # SQLonRHEL
